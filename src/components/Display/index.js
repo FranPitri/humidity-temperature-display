@@ -31,7 +31,7 @@ class Display extends Component {
             })
             return
         }
-        const sample = await axios.get(SERVER_URL, {
+        const sample = await axios.get(SERVER_URL + 'getData/', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -40,7 +40,11 @@ class Display extends Component {
         this.setState({
             data : [
                 ...( this.state.data.length > 7 ? this.state.data.slice(1) : this.state.data),
-                {temperature: sample.data.temperature , humidity: sample.data.humidity, time: moment().format('h:mm:ss a')}
+                {
+                    temperature: sample.data.temperature,
+                    humidity: sample.data.humidity,
+                    time: moment(sample.data.time).format('h:mm:ss a')
+                }
             ]
         })
     }
